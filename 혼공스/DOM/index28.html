@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>d</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.querySelector('#select')
+      const input = document.querySelector('#input')
+      const btn = document.querySelector('button')
+      const output = document.querySelector('#output')
+      const p = document.querySelector('p')
+      const span = document.querySelector('span')
+
+      let now;
+      let change = 10
+
+      const cal = () => {
+        output.value = (now * change).toFixed(2)
+        p.textContent = `${input.value} cm 는 ${output.value} mm 입니다.`
+      }
+
+      select.addEventListener('change', (event) => {
+        const options = event.currentTarget.options
+        const index = event.currentTarget.options.selectedIndex
+        change = Number(options[index].value)
+        span.textContent = options[index].textContent
+        
+        cal()
+        p.textContent = `${input.value} cm 는 ${output.value} ${options[index].textContent} 입니다.`
+      })
+
+      input.addEventListener('keyup', (event) => {
+        now = Number(event.currentTarget.value)
+        
+        cal()
+      })
+    })
+  </script>
+</head>
+<body>
+  <select id="select">
+    <option value="10">mm</option>
+    <option value="0.01">m</option>
+    <option value="0.393701">inch</option>
+  </select>
+  <input id="input" type="text">&nbsp;cm
+  &nbsp;&nbsp;
+  <button>입력</button>
+  &nbsp;&nbsp;
+  <input id="output" type="text" disabled>
+  &nbsp;
+  <span>mm</span>
+  <p></p>
+</body>
+</html>

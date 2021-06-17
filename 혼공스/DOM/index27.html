@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cm 단위를 여러단위로 변환</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 현재값
+      let now
+      // 변환 상수
+      let change = 10
+
+      const input = document.querySelector('input')
+      const span = document.querySelector('span')
+      const select = document.querySelector('select')
+
+      const calculate = () => {
+        span.textContent = (now * change).toFixed(2) // 소수점 2번째 자리까지 출력
+        // toFixed() 메소드는 숫자를 문자열로 변환 
+      }
+
+      select.addEventListener('change', (event) => {
+        const options = event.currentTarget.options
+        const index = event.currentTarget.options.selectedIndex
+
+        change = Number(options[index].value)
+        // 항목을 선택하면 항목의 value 속성을 추출
+        calculate()
+      })
+
+      input.addEventListener('keyup', (event) => {
+        now = Number(event.currentTarget.value)
+        // 값을 입력하면 현재 값을 추출
+        calculate()
+      })
+    })
+  </script>
+</head>
+<body>
+  <input type="text"> cm = 
+  <span></span>
+  <br/>
+  <select>
+    <option value="10">mm</option>
+    <option value="0.01">m</option>
+    <option value="0.393701">inch</option>
+  </select>
+</body>
+</html>
