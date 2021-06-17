@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    document.addEventListener(('DOMContentLoaded'), () => {
+      const first = document.querySelector('#first')
+      const second = document.querySelector('#second')
+      const h1 = document.createElement('h1')
+      h1.textContent = `이동합니다...`
+      const counter = document.createElement('h1')
+
+      const array = [first, second]
+      let count = 0
+      const func = () => {
+        array[count % 2].appendChild(h1)
+        count++
+        h1.textContent = `현재 count는 ${count} 입니다.`
+      }
+
+      const timer = setInterval(() => {
+        func()
+        if(count === 10) {
+          clearInterval(timer)
+        }
+      }, 1000)
+      func()
+    })
+  </script>
+</head>
+<body>
+  <div id="first">
+    <h1>첫 번째 div 태그 내부</h1>
+  </div>
+  <hr>
+  <div id="second">
+    <h1>두 번째 div 태그 내부</h1>
+  </div>
+</body>
+</html>
