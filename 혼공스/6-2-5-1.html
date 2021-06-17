@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <title>랜덤한 숫자 맞추기 게임</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    #container {
+      margin: 300px auto;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding: 50px;
+      border: 3px solid #000;
+    }
+    #container div {
+      display: flex;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #container div input {
+      margin-left: 10px;
+      padding-left: 4px;
+    }
+    #container #submit {
+      padding: 4px;
+    }
+    #container #reset {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2 class="head-title">랜덤한 숫자 맞추기 게임</h2>
+    <div class="game-ex">
+      1 부터 100 까지의 랜덤한 숫자를 맞추는 게임입니다.<br/>
+      사용 횟수가 6을 넘어가면 리셋됩니다.
+    </div>
+    <div class="number"> 
+      숫자를 입력하세요 : 
+      <input type="text" id="input" value="">
+      <input type="button" id="submit" value="확인">
+    </div>
+    <div class="thinkNum">
+      사용 횟수 :
+      <input type="text" id="count" size="30">
+    </div>
+    <div class="hint">
+      <input type="text" id="hint-text" size="30">
+    </div>
+    <input type="button" id="reset" value="reset!">
+  </div>
+  
+</body>
+<script>
+  
+  
+  
+  $(function(){
+    let num = Math.floor(Math.random() * 100 + 1); // 랜덤한 수
+    let count = 1; // 사용 횟수
+    $("#submit").click(function(){
+      let input = $("#input").val();
+      if(input == num) {
+        alert('정답입니다.');
+        reset();
+      } else if (input == '') {
+        alert('값을 입력해주세요.');
+      } else if (input > num) {
+        $("#hint-text").val(input + '보다 작습니다.');
+      } else if (input < num) {
+        $("#hint-text").val(input + '보다 큽니다.');
+      }
+      $("#count").val('사용 횟수는 ' + (count++) + '입니다.');
+      if(count > 7) {
+        reset();
+      }
+    });
+    function reset() {
+      num = Math.floor(Math.random() * 100 + 1);
+      count = 0;
+
+      $('#input').val('');
+      $('#hint-text').val('');
+      $('#count').val('');
+    }
+
+    $('#reset').click(function(){
+      reset();
+    });
+
+  });
+</script>
+</html>

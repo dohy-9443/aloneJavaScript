@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>랜덤한 숫자 맞추기 게임</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    #container {
+      margin: 300px auto;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding: 50px;
+      border: 3px solid #000;
+    }
+    #container div {
+      display: flex;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #container div input {
+      margin-left: 10px;
+      padding-left: 4px;
+    }
+    #container #submit {
+      padding: 4px;
+    }
+    #container #reset {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2 class="head-title">랜덤한 숫자 맞추기 게임</h2>
+    <div class="game-ex">
+      1 부터 100 까지의 랜덤한 숫자를 맞추는 게임입니다.<br/>
+      사용 횟수가 6을 넘어가면 리셋됩니다.
+    </div>
+    <div class="number"> 
+      숫자를 입력하세요 : 
+      <input type="text" id="input" size="5">
+      <input type="button" id="submit"  onclick="randomNum()" value="확인">
+    </div>
+    <div class="thinkNum">
+      사용 횟수 :
+      <input type="text" id="count" size="30">
+    </div>
+    <div class="hint">
+      <input type="text" id="hint-text" size="30">
+    </div>
+    <input type="button" id="reset" value="reset!">
+  </div>
+  
+</body>
+<script>
+
+  let num = Math.floor(Math.random() * 100 + 1); // 랜덤한 수
+  let count = 1; // 사용 횟수
+  function randomNum() {
+    let input = document.getElementById("input").value;
+    // #input의 value값을 가져옴
+
+    if(input == num) { // 정답일 때
+      alert('정답입니다.');
+
+    } else if (input == '') { // 아무것도 입력하지 않았을 때
+      alert('숫자를 입력하세요.');
+
+    } else {
+      if(num > input) { // 랜덤한 수가 내가 입력한 값보다 클 때
+        document.getElementById('hint-text').value = (input + "보다 커요.");
+        // 입력한 수보다 크다고 메시지 출력
+      } else {
+        document.getElementById('hint-text').value = (input + '보다 작아요.');
+        // 입력한 수보다 작다고 메시지 출력
+      }
+    }
+    document.getElementById('count').value = ('사용 횟수는 ' + (count++) + ' 번 입니다.');
+    // 사용 횟수를 출력
+    if(count > 7) {
+      reset();
+    }
+  }
+  
+  function reset() {
+    // 리셋버튼을 눌렀을 때
+    num = Math.floor(Math.random() * 100 + 1);
+    count = 1;
+
+    document.getElementById('input').value = '';
+    document.getElementById('hint-text').value = '';
+    document.getElementById('count').value = '';
+  }
+
+  document.getElementById('reset').addEventListener('click', function(){
+    reset();
+  });
+</script>
+</html>
