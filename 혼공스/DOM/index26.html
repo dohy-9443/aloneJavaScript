@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>드롭다운</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.querySelector('select')
+      const span = document.querySelector('span')
+
+      span.style.color = 'red'
+      span.style.fontWeight = 'bold'
+
+      select.addEventListener('change', (event) => {
+        const options = event.currentTarget.options
+        const list = []
+
+        for (const option of options) {
+          if (option.selected) {
+            list.push(option.textContent)
+          }
+        }
+
+        span.textContent = list.join(', ')
+      })
+    })
+  </script>
+</head>
+<body>
+  <select multiple>
+    <option>떡볶이</option>
+    <option>순대</option>
+    <option>튀김</option>
+    <option>오뎅</option>
+  </select>
+  <p>선택 : <span></span></p>
+</body>
+</html>
