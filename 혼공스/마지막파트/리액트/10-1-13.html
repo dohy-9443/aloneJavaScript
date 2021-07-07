@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴포넌트 배열 사용하기(3)</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div> <!-- div#root 태그를 만든다. -->
+  <!-- 리액트를 사용하는 코드 입력 -->
+
+  <!-- type 속성에 "text/babel"을 지정한다. -->
+  <script type="text/babel"> 
+    // 애플리케이션 클래스 생성하기
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          fruits : ['사과', '귤', '바나나', '청포도', '블루베리', '포도', '자두']
+        }
+      }
+
+      render() {
+        return <ul>
+          {this.state.fruits.map((item) => {
+            return <li>{item}</li>
+          })}
+        </ul>
+      }
+    }
+
+    // 출력하기
+    const container = document.querySelector('#root')
+    ReactDOM.render(<App/>, container)
+  </script>
+</body>
+</html>
