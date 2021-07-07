@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글자수 세는 프로그램</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div> <!-- div#root 태그를 만든다. -->
+  <!-- 리액트를 사용하는 코드 입력 -->
+
+  <!-- type 속성에 "text/babel"을 지정한다. -->
+  <script type="text/babel"> 
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          text : '',
+          length: 0
+        }
+        this.handleChange = this.handleChange.bind(this)
+      }
+
+      render() {
+        return <div>
+          <h1>글자 수: {this.state.length}</h1>
+          <textarea
+          value={this.state.text}
+          onChange={this.handleChange}></textarea>
+        </div>
+      }
+
+      handleChange (event) {
+        this.setState({
+          text: event.target.value
+        })
+      }
+
+      componentDidMount() {
+        // 컴포넌트가 화면에 출력되었을 때
+        this.timerId = setInterval(() => {
+          this.setState({
+            length: this.state.text.length
+          })
+        }, 50)
+      }
+
+      componentWillUnmount() {
+        // 컴포넌트가 화면에서 제거될 때
+        clearInterval(this.timerId)
+      }
+    }
+
+    const container = document.querySelector('#root')
+    ReactDOM.render(<App/>, container)
+  </script>
+</body>
+</html>
